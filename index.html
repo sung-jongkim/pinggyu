@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게임 관리 사이트</title>
+    <style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+nav {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+nav a {
+    display: block;
+    padding: 10px;
+    margin-bottom: 5px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+}
+nav a.active {
+    background-color: #007bff;
+    color: white;
+}
+.content {
+    flex: 1;
+    padding: 20px;
+}
+.content > section {
+    display: none;
+}
+h2 {
+    margin-top: 0;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+table, th, td {
+    border: 1px solid #ddd;
+}
+th, td {
+    padding: 8px;
+    text-align: center; /* 가운데 정렬 */
+}
+th {
+    background-color: #f2f2f2;
+}
+button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #0056b3;
+}
+
+/* 입력 섹션 칸 크기 및 세로 정렬 */
+#input-form {
+    display: flex;
+    flex-direction: column;
+}
+#input-form label, #input-form input {
+    margin-bottom: 10px;
+}
+#input-form input {
+    padding: 8px;
+    width: 15%;
+    box-sizing: border-box;
+}
+
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" data-section="schedule">스케줄</a>
+        <a href="#" data-section="input">입력</a>
+        <a href="#" data-section="personal-ranking">개인 순위</a>
+        <a href="#" data-section="party-ranking">파티 순위</a>
+        <a href="#" data-section="other">내판</a>
+    </nav>
+
+    <div class="content">
+        <!-- 스케줄 섹션 -->
+        <section id="schedule">
+            <h2>스케줄</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>시간</th>
+                        <th>월</th>
+                        <th>화</th>
+                        <th>수</th>
+                        <th>목</th>
+                        <th>금</th>
+                        <th>토</th>
+                        <th>일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tbody>
+                        <tr>
+                            <td>04:00 / 08:00<br>12:00 / 16:00</td>
+                            <td>해골왕</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>18:00</td>
+                            <td>일본/지옥월보</td>
+                            <td>아래하늘월보</td>
+                            <td>조드/용궁월보</td>
+                            <td>일본/지옥월보</td>
+                            <td>아래하늘월보</td>
+                            <td>조드/용궁월보</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>아래하늘연대기</td>
+                            <td></td>
+                            <td>아래하늘연대기</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>20:00</td>
+                            <td>해골왕</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>21:00</td>
+                            <td>폭:백두선인<br>폭:백두폭포동굴</td>
+                            <td>환섬맹독사<br>시간표>맹독사</td>
+                            <td>폭:새우니<br>폭:철상지옥</td>
+                            <td>폭:암흑룡인<br>폭:용문봉</td>
+                            <td>폭:지하국대적<br>폭:철상지옥5</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>용궁 집결지</td>
+                            <td></td>
+                            <td></td>
+                            <td>인면수<br>시간표>인면수</td>
+                            <td>타락한사리<br>시간표>사리</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>22:00</td>
+                            <td>백두월드집결지<br>시간표>백두,암흑<br>필요 : 선계의기운</td>
+                            <td></td>
+                            <td>북방월드집결지<br>시간표>대족장의망령<br>필요 : 저편의기운</td>
+                            <td>일본월드집결지<br>시간표>료멘스쿠나</td>
+                            <td>도삭산점령전<br>(격주:서버/월드)</td>
+                            <td>요새전<br>문파>요새함락전</td>
+                            <td>공성전<br>(격주:서버/월드)</td>
+                        </tr>
+                        <tr>
+                            <td>23:00</td>
+                            <td>선계1층보스<br>입장권</td>
+                            <td>선계2층보스<br>입장권</td>
+                            <td>선계3층보스<br>입장권</td>
+                            <td>선계4층보스<br>입장권</td>
+                            <td>천계1층보스<br>입장권</td>
+                            <td></td>
+                            <td>폭룡의은신처<br>긴급미션>PVP레이드</td>
+                        </tr>
+                        <tr>
+                            <td>0:10</td>
+                            <td>해골왕</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        <!-- 입력 섹션 -->
+        <section id="input">
+            <h2>입력</h2>
+            <form id="input-form">
+                <label for="nickname">닉네임</label>
+                <input type="text" id="nickname" name="nickname" required>
+
+                <label for="penetration">피해저항관통</label>
+                <input type="number" id="penetration" name="penetration" required>
+
+                <label for="resistance">피해저항</label>
+                <input type="number" id="resistance" name="resistance" required>
+
+                <label for="attack">대인피해</label>
+                <input type="number" id="attack" name="attack" required>
+
+                <label for="defense">대인방어</label>
+                <input type="number" id="defense" name="defense" required>
+
+                <label for="clan">문파명</label>
+                <input type="text" id="clan" name="clan" required>
+
+                <button type="submit">추가</button>
+            </form>
+        </section>
+
+        <!-- 개인 순위 섹션 -->
+        <section id="personal-ranking">
+            <h2>개인 순위</h2>
+            <table id="personal-ranking-table">
+                <thead>
+                    <tr>
+                        <th>순위</th>
+                        <th>닉네임</th>
+                        <th>피해저항관통</th>
+                        <th>피해저항</th>
+                        <th>타채합산</th>
+                        <th>대인피해</th>
+                        <th>대인방어</th>
+                        <th>환산합산</th>
+                        <th>문파명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 데이터는 여기에 추가됨 -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 파티 순위 섹션 -->
+        <section id="party-ranking">
+            <h2>파티 순위</h2>
+            <form id="party-form">
+                <label for="party-name">파티명</label>
+                <input type="text" id="party-name" name="party-name" required>
+
+                <label for="party-size">인원</label>
+                <input type="number" id="party-size" name="party-size" min="1" max="4" required>
+
+                <label for="member1">파티원1</label>
+                <input type="text" id="member1" name="member1" required>
+
+                <label for="member2">파티원2</label>
+                <input type="text" id="member2" name="member2">
+
+                <label for="member3">파티원3</label>
+                <input type="text" id="member3" name="member3">
+
+                <label for="member4">파티원4</label>
+                <input type="text" id="member4" name="member4">
+
+                <button type="submit">추가</button>
+            </form>
+
+            <h3>파티 순위 목록</h3>
+            <table id="party-ranking-table">
+                <thead>
+                    <tr>
+                        <th>순위</th>
+                        <th>파티명</th>
+                        <th>인원</th>
+                        <th>파티원1</th>
+                        <th>합산1</th>
+                        <th>파티원2</th>
+                        <th>합산2</th>
+                        <th>파티원3</th>
+                        <th>합산3</th>
+                        <th>파티원4</th>
+                        <th>합산4</th>
+                        <th>평균</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 데이터는 여기에 추가됨 -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 내판 섹션 -->
+        <section id="other">
+            <h2>내판</h2>
+            <form id="item-form">
+                <label for="item-date">날짜</label>
+                <input type="date" id="item-date" name="item-date" required>
+
+                <label for="item-from">누가</label>
+                <input type="text" id="item-from" name="item-from" required>
+
+                <label for="item-to">누구에게</label>
+                <input type="text" id="item-to" name="item-to" required>
+
+                <label for="item-what">무엇을</label>
+                <select id="item-what" name="item-what" required>
+                    <option value="황금잔">황금잔</option>
+                    <option value="별의흔적">별의흔적</option>
+                    <option value="대피구슬">대피구슬</option>
+                    <option value="대피%구슬">대피%구슬</option>
+                    <option value="대방구슬">대방구슬</option>
+                    <option value="대방%구슬">대방%구슬</option>
+                    <option value="해모양장식">해모양장식</option>
+                    <option value="나린의뼈">나린의뼈</option>
+                </select>
+
+                <label for="item-quantity">몇개</label>
+                <input type="number" id="item-quantity" name="item-quantity" min="1" max="20" required>
+
+                <label for="item-remark">비고</label>
+                <input type="text" id="item-remark" name="item-remark">
+
+                <button type="submit">추가</button>
+            </form>
+
+            <h3>내판 목록</h3>
+            <table id="item-list-table">
+                <thead>
+                    <tr>
+                        <th>날짜</th>
+                        <th>누가</th>
+                        <th>누구에게</th>
+                        <th>무엇을</th>
+                        <th>수량</th>
+                        <th>비고</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 데이터는 여기에 추가됨 -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script>
+        const links = document.querySelectorAll('nav a');
+        const sections = document.querySelectorAll('.content > section');
+
+        links.forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                links.forEach(link => link.classList.remove('active'));
+                sections.forEach(section => section.style.display = 'none');
+
+                const sectionId = link.getAttribute('data-section');
+                document.getElementById(sectionId).style.display = 'block';
+                link.classList.add('active');
+            });
+        });
+
+        // 기본적으로 스케줄 섹션을 표시
+        document.querySelector('nav a[data-section="schedule"]').click();
+    </script>
+</body>
+</html>
