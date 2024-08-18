@@ -1,100 +1,242 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게임 관리 사이트</title>
+    <title>게임 정보 사이트</title>
     <style>
-    body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-nav {
-    width: 200px;
-    background-color: #f4f4f4;
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-}
-nav a {
-    display: block;
-    padding: 10px;
-    margin-bottom: 5px;
-    color: #333;
-    text-decoration: none;
-    border-radius: 4px;
-}
-nav a.active {
-    background-color: #007bff;
-    color: white;
-}
-.content {
-    flex: 1;
-    padding: 20px;
-}
-.content > section {
-    display: none;
-}
-h2 {
-    margin-top: 0;
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-table, th, td {
-    border: 1px solid #ddd;
-}
-th, td {
-    padding: 8px;
-    text-align: center; /* 가운데 정렬 */
-}
-th {
-    background-color: #f2f2f2;
-}
-button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-button:hover {
-    background-color: #0056b3;
-}
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
 
-/* 입력 섹션 칸 크기 및 세로 정렬 */
-#input-form {
-    display: flex;
-    flex-direction: column;
-}
-#input-form label, #input-form input {
-    margin-bottom: 10px;
-}
-#input-form input {
-    padding: 8px;
-    width: 15%;
-    box-sizing: border-box;
-}
+        /* 왼쪽 사이드바 */
+        nav {
+            width: 220px;
+            background-color: #333;
+            height: 100vh;
+            padding-top: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+        }
 
+        nav a {
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #fff;
+            margin: 5px 0;
+            display: block;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        nav a.active {
+            background-color: #007bff;
+        }
+
+        /* 컨텐츠 영역 */
+        .content {
+            margin-left: 240px;
+            padding: 20px;
+            width: calc(100% - 240px);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        section {
+            display: none;
+        }
+
+        /* 폼과 테이블을 나란히 배치할 수 있도록 설정 */
+        .form-and-summary {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-container {
+            flex: 2;
+        }
+
+        .summary-container {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .notice-section {
+            line-height: 1.6;
+        }
+
+        .notice-section h3 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .highlight {
+            color: #d9534f;
+        }
+
+        /* 테이블 스타일 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        /* 입력 폼 스타일 */
+        .input-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            margin: 20px 0;
+        }
+
+        .input-form label {
+            margin: 10px 0 5px;
+        }
+
+        .input-form input, .input-form select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .input-form button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .input-form button:hover {
+            background-color: #0056b3;
+        }
+
+        /* 내판 섹션의 표 스타일 */
+        .inventory-summary {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .inventory-summary th, .inventory-summary td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .inventory-summary th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
+    <!-- 왼쪽 사이드바 -->
     <nav>
-        <a href="#" data-section="schedule">스케줄</a>
+        <a href="#" data-section="notice" class="active">공지</a>
+        <a href="#" data-section="schedule">스케쥴</a>
         <a href="#" data-section="input">입력</a>
-        <a href="#" data-section="personal-ranking">개인 순위</a>
-        <a href="#" data-section="party-ranking">파티 순위</a>
+        <a href="#" data-section="personal-ranking">개인순위</a>
+        <a href="#" data-section="party-ranking">파티순위</a>
         <a href="#" data-section="other">내판</a>
+        <a href="#" data-section="waterway">수로</a>
+        <a href="#" data-section="castle">요새전</a>
+        <a href="#" data-section="dosak-mountain">도삭산</a>
+        <a href="#" data-section="dosak-distribution">도삭산분배</a>
+        <a href="#" data-section="siege">공성전</a>
+        <a href="#" data-section="tax-relic">세금 및 성물</a>
     </nav>
 
+    <!-- 컨텐츠 영역 -->
     <div class="content">
-        <!-- 스케줄 섹션 -->
+        <!-- 공지사항 섹션 -->
+        <section id="notice">
+            <h2>공지사항</h2>
+            <div class="notice-section">
+                <h3>운영진</h3>
+                <p>
+                    - 연합장: 쭈사야<br>
+                    - 운영진: 아리샨, 비미디, 그쳐, 피들스틱, 콩떡구이, 판사, 어부, 아티<br>
+                    - 시트 관리: 아티, 쭈사야<br>
+                    - 디스코드 관리: 비미디
+                </p>
+
+                <h3 class="highlight">❗적대목록❗</h3>
+                <p>
+                    - 무휼: 미래불멸1연구소 ~ 6연구소, 갓블레스유<br>
+                    - 세류: 백쉬, 백쉬B<br>
+                    - 연: 연A, 연D, 연M, 연Z<br>
+                    - 해명: 해명반탑A, B, C, D
+                </p>
+
+                <h3>스펙 갱신</h3>
+                <p>
+                    1. 스펙 갱신은 수다방 > 방장봇/스펙갱신 으로 진행합니다. (1캐릭당 1개의 구글 계정 사용)<br>
+                    2. 스펙 갱신 시 오류 및 요청사항 발생 시 >아티< 문의바랍니다.<br>
+                    3. 허위 갱신 시 불이익이 있을 수 있습니다. (IF효도법, 상상타채 안돼요 ㅠㅠ)<br>
+                    4. 문파 이동은 별도로 카톡 공지방에 공지 예정입니다.<br>
+                    <span class="highlight">❗ 닉네임 변경 시 > 스펙설문에 닉네임 변경 및 운영진에게 꼭 말씀해주셔야 합니다.</span>
+                </p>
+
+                <h3 class="highlight">😀우호문파😀</h3>
+                <p>
+                    - 무휼: TOP탑, TOP탑A, TOP탑B, TOP탑C, TOP탑D<br>
+                    - 뱅퀴시/히든/일일삼깡<br>
+                    - 세류: 강철, 태극문양, 범식, 지폐, 텔레파시, 유일무이
+                </p>
+
+                <h3>컨텐츠 관련</h3>
+                <p>
+                    모든 컨텐츠는 디스코드 오더에 따라서 움직이게 됩니다.<br>
+                    (컨텐츠 시작 전 카톡 공지방에서 별도로 안내해드립니다.)<br><br>
+                    <span class="highlight">❗공성전❗, 요새전, 서버/월드 도삭산 점령전 컨텐츠 같은 경우 꼭 필참 부탁드립니다.</span><br><br>
+                    100% 농사가 아니다 보니 진행 방식이 상황에 따라 바뀔 수 있습니다.<br>
+                    양해 부탁드리고 오더에 잘 따라주시면 감사하겠습니다.
+                </p>
+
+                <h3>내판 관련</h3>
+                <p>
+                    내판은 잡담방 공지사항에 정리가 되어있습니다.<br>
+                    내판 템은 꼭 바로바로 내판 부탁드리며, 내판 시 시트에 꼭 기록 부탁드립니다.<br>
+                    혹여나 깜박했을 경우 시트에 남겨주세요.
+                </p>
+
+                <h3>기타</h3>
+                <p>
+                    불만 사항 및 의견이 있으실 경우 운영진에게 연락을 부탁드립니다.<br>
+                    서로 배려하는 마음으로 항상 존중해주세요.
+                </p>
+            </div>
+        </section>
+
+        <!-- 스케쥴 섹션 -->
         <section id="schedule">
-            <h2>스케줄</h2>
+            <h2>스케쥴</h2>
             <table>
                 <thead>
                     <tr>
@@ -109,129 +251,129 @@ button:hover {
                     </tr>
                 </thead>
                 <tbody>
-                    <tbody>
-                        <tr>
-                            <td>04:00 / 08:00<br>12:00 / 16:00</td>
-                            <td>해골왕</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>18:00</td>
-                            <td>일본/지옥월보</td>
-                            <td>아래하늘월보</td>
-                            <td>조드/용궁월보</td>
-                            <td>일본/지옥월보</td>
-                            <td>아래하늘월보</td>
-                            <td>조드/용궁월보</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td>아래하늘연대기</td>
-                            <td></td>
-                            <td>아래하늘연대기</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>20:00</td>
-                            <td>해골왕</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>21:00</td>
-                            <td>폭:백두선인<br>폭:백두폭포동굴</td>
-                            <td>환섬맹독사<br>시간표>맹독사</td>
-                            <td>폭:새우니<br>폭:철상지옥</td>
-                            <td>폭:암흑룡인<br>폭:용문봉</td>
-                            <td>폭:지하국대적<br>폭:철상지옥5</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>용궁 집결지</td>
-                            <td></td>
-                            <td></td>
-                            <td>인면수<br>시간표>인면수</td>
-                            <td>타락한사리<br>시간표>사리</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>22:00</td>
-                            <td>백두월드집결지<br>시간표>백두,암흑<br>필요 : 선계의기운</td>
-                            <td></td>
-                            <td>북방월드집결지<br>시간표>대족장의망령<br>필요 : 저편의기운</td>
-                            <td>일본월드집결지<br>시간표>료멘스쿠나</td>
-                            <td>도삭산점령전<br>(격주:서버/월드)</td>
-                            <td>요새전<br>문파>요새함락전</td>
-                            <td>공성전<br>(격주:서버/월드)</td>
-                        </tr>
-                        <tr>
-                            <td>23:00</td>
-                            <td>선계1층보스<br>입장권</td>
-                            <td>선계2층보스<br>입장권</td>
-                            <td>선계3층보스<br>입장권</td>
-                            <td>선계4층보스<br>입장권</td>
-                            <td>천계1층보스<br>입장권</td>
-                            <td></td>
-                            <td>폭룡의은신처<br>긴급미션>PVP레이드</td>
-                        </tr>
-                        <tr>
-                            <td>0:10</td>
-                            <td>해골왕</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
+                    <tr>
+                        <td>"04:00 / 08:00 12:00 / 16:00"</td>
+                        <td>해골왕</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>18:00</td>
+                        <td>일본/지옥월보</td>
+                        <td>아래하늘월보</td>
+                        <td>조드/용궁월보</td>
+                        <td>일본/지옥월보</td>
+                        <td>아래하늘월보</td>
+                        <td>조드/용궁월보</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>아래하늘연대기</td>
+                        <td></td>
+                        <td></td>
+                        <td>아래하늘연대기</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>20:00</td>
+                        <td>해골왕</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>21:00</td>
+                        <td>"폭:백두선인 폭:백두폭포동굴"</td>
+                        <td>"환섬맹독사 시간표>맹독사"</td>
+                        <td>"폭:새우니 폭:철상지옥"</td>
+                        <td>"폭:암흑룡인 폭:용문봉"</td>
+                        <td>"폭:지하국대적 폭:철상지옥5"</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>용궁 집결지</td>
+                        <td></td>
+                        <td>"인면수 시간표>인면수"</td>
+                        <td></td>
+                        <td>"타락한사리 시간표>사리"</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>22:00</td>
+                        <td>"백두월드집결지 시간표>백두,암흑 필요 : 선계의기운"</td>
+                        <td></td>
+                        <td>"북방월드집결지 시간표>대족장의망령 필요 : 저편의기운"</td>
+                        <td>"일본월드집결지 시간표>료멘스쿠나"</td>
+                        <td>"도삭산점령전 (격주:서버/월드)"</td>
+                        <td>"요새전 문파>요새함락전"</td>
+                        <td>"공성전 (격주:서버/월드)"</td>
+                    </tr>
+                    <tr>
+                        <td>23:00</td>
+                        <td>"선계1층보스 입장권"</td>
+                        <td>"선계2층보스 입장권"</td>
+                        <td>"선계3층보스 입장권"</td>
+                        <td>"선계4층보스 입장권"</td>
+                        <td>"천계1층보스 입장권"</td>
+                        <td></td>
+                        <td>"폭룡의은신처 긴급미션>PVP레이드"</td>
+                    </tr>
+                    <tr>
+                        <td>0:10</td>
+                        <td>해골왕</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
         <!-- 입력 섹션 -->
         <section id="input">
             <h2>입력</h2>
-            <form id="input-form">
+            <form class="input-form" id="input-form">
                 <label for="nickname">닉네임</label>
                 <input type="text" id="nickname" name="nickname" required>
 
-                <label for="penetration">피해저항관통</label>
-                <input type="number" id="penetration" name="penetration" required>
+                <label for="damage-resistance-penetration">피해저항관통</label>
+                <input type="number" id="damage-resistance-penetration" name="damage-resistance-penetration" required>
 
-                <label for="resistance">피해저항</label>
-                <input type="number" id="resistance" name="resistance" required>
+                <label for="damage-resistance">피해저항</label>
+                <input type="number" id="damage-resistance" name="damage-resistance" required>
 
-                <label for="attack">대인피해</label>
-                <input type="number" id="attack" name="attack" required>
+                <label for="damage-to-person">대인피해</label>
+                <input type="number" id="damage-to-person" name="damage-to-person" required>
 
-                <label for="defense">대인방어</label>
-                <input type="number" id="defense" name="defense" required>
+                <label for="defense-against-person">대인방어</label>
+                <input type="number" id="defense-against-person" name="defense-against-person" required>
 
-                <label for="clan">문파명</label>
-                <input type="text" id="clan" name="clan" required>
+                <label for="clan-name">문파명</label>
+                <input type="text" id="clan-name" name="clan-name" required>
 
-                <button type="submit">추가</button>
+                <button type="button" onclick="addInputData()">입력</button>
             </form>
         </section>
 
-        <!-- 개인 순위 섹션 -->
+        <!-- 개인순위 섹션 -->
         <section id="personal-ranking">
-            <h2>개인 순위</h2>
+            <h2>개인순위</h2>
             <table id="personal-ranking-table">
                 <thead>
                     <tr>
@@ -247,131 +389,349 @@ button:hover {
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- 데이터는 여기에 추가됨 -->
+                    <!-- 데이터는 JavaScript로 동적으로 추가됩니다 -->
                 </tbody>
             </table>
         </section>
 
-        <!-- 파티 순위 섹션 -->
+        <!-- 파티순위 섹션 -->
         <section id="party-ranking">
-            <h2>파티 순위</h2>
-            <form id="party-form">
-                <label for="party-name">파티명</label>
-                <input type="text" id="party-name" name="party-name" required>
-
-                <label for="party-size">인원</label>
-                <input type="number" id="party-size" name="party-size" min="1" max="4" required>
-
-                <label for="member1">파티원1</label>
-                <input type="text" id="member1" name="member1" required>
-
-                <label for="member2">파티원2</label>
-                <input type="text" id="member2" name="member2">
-
-                <label for="member3">파티원3</label>
-                <input type="text" id="member3" name="member3">
-
-                <label for="member4">파티원4</label>
-                <input type="text" id="member4" name="member4">
-
-                <button type="submit">추가</button>
-            </form>
-
-            <h3>파티 순위 목록</h3>
+            <h2>파티순위</h2>
             <table id="party-ranking-table">
                 <thead>
                     <tr>
                         <th>순위</th>
                         <th>파티명</th>
-                        <th>인원</th>
-                        <th>파티원1</th>
-                        <th>합산1</th>
-                        <th>파티원2</th>
-                        <th>합산2</th>
-                        <th>파티원3</th>
-                        <th>합산3</th>
-                        <th>파티원4</th>
-                        <th>합산4</th>
-                        <th>평균</th>
+                        <th>피해저항관통</th>
+                        <th>피해저항</th>
+                        <th>대인피해</th>
+                        <th>대인방어</th>
+                        <th>환산합산</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- 데이터는 여기에 추가됨 -->
+                    <!-- 데이터는 JavaScript로 동적으로 추가됩니다 -->
                 </tbody>
             </table>
         </section>
 
-        <!-- 내판 섹션 -->
+                <!-- 내판 섹션 -->
         <section id="other">
             <h2>내판</h2>
-            <form id="item-form">
-                <label for="item-date">날짜</label>
-                <input type="date" id="item-date" name="item-date" required>
 
-                <label for="item-from">누가</label>
-                <input type="text" id="item-from" name="item-from" required>
+            <!-- 입력 폼과 아이템 요약을 나란히 배치 -->
+            <div class="form-and-summary">
+                <!-- 입력 폼 -->
+                <div class="form-container">
+                    <form class="input-form" id="input-form">
+                        <label for="date">날짜</label>
+                        <input type="date" id="date" name="date" required>
 
-                <label for="item-to">누구에게</label>
-                <input type="text" id="item-to" name="item-to" required>
+                        <label for="who">누가</label>
+                        <input type="text" id="who" name="who" required>
 
-                <label for="item-what">무엇을</label>
-                <select id="item-what" name="item-what" required>
-                    <option value="황금잔">황금잔</option>
-                    <option value="별의흔적">별의흔적</option>
-                    <option value="대피구슬">대피구슬</option>
-                    <option value="대피%구슬">대피%구슬</option>
-                    <option value="대방구슬">대방구슬</option>
-                    <option value="대방%구슬">대방%구슬</option>
-                    <option value="해모양장식">해모양장식</option>
-                    <option value="나린의뼈">나린의뼈</option>
-                </select>
+                        <label for="to-whom">누구에게</label>
+                        <input type="text" id="to-whom" name="to-whom" required>
 
-                <label for="item-quantity">몇개</label>
-                <input type="number" id="item-quantity" name="item-quantity" min="1" max="20" required>
+                        <label for="item">무엇을</label>
+                        <select id="item" name="item" required>
+                            <option value="황금잔">황금잔</option>
+                            <option value="별의흔적">별의흔적</option>
+                            <option value="대피구슬">대피구슬</option>
+                            <option value="대피%구슬">대피%구슬</option>
+                            <option value="대방구슬">대방구슬</option>
+                            <option value="대방%구슬">대방%구슬</option>
+                            <option value="해모양장식">해모양장식</option>
+                            <option value="나린의뼈">나린의뼈</option>
+                        </select>
 
-                <label for="item-remark">비고</label>
-                <input type="text" id="item-remark" name="item-remark">
+                        <label for="quantity">몇개</label>
+                        <input type="number" id="quantity" name="quantity" min="1" max="20" required>
 
-                <button type="submit">추가</button>
-            </form>
+                        <label for="notes">비고</label>
+                        <input type="text" id="notes" name="notes">
 
-            <h3>내판 목록</h3>
-            <table id="item-list-table">
+                        <button type="button" onclick="addInventoryEntry()">추가</button>
+                    </form>
+                </div>
+
+                <!-- 아이템 요약 -->
+                <div class="summary-container">
+                    <h3>아이템 요약</h3>
+                    <table class="inventory-summary">
+                        <thead>
+                            <tr>
+                                <th>아이템</th>
+                                <th>총 개수</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventory-summary-body">
+                            <tr>
+                                <td>황금잔</td>
+                                <td id="golden-cup-count">0</td>
+                            </tr>
+                            <tr>
+                                <td>별의흔적</td>
+                                <td id="star-spot-count">0</td>
+                            </tr>
+                            <tr>
+                                <td>대피구슬</td>
+                                <td id="escape-bead-count">0</td>
+                            </tr>
+                            <tr>
+                                <td>대피%구슬</td>
+                                <td id="escape-percent-bead-count">0</td>
+                            </tr>
+                            <tr>
+                                <td>대방구슬</td>
+                                <td id="defense-bead-count">0</td>
+                            </tr>
+                            <tr>
+                                <td>대방%구슬</td>
+                                <td id="defense-percent-bead-count">0</td>
+                            </tr>
+                            <tr>
+                                <td>해모양장식</td>
+                                <td id="moon-pattern-accessory-count">0</td>
+                            </tr>
+                            <tr>
+                                <td>나린의뼈</td>
+                                <td id="narins-bone-count">0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 내판 게시판 표 -->
+            <table>
                 <thead>
                     <tr>
+                        <th>내판No</th>
                         <th>날짜</th>
                         <th>누가</th>
                         <th>누구에게</th>
                         <th>무엇을</th>
-                        <th>수량</th>
+                        <th>몇개</th>
                         <th>비고</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- 데이터는 여기에 추가됨 -->
+                <tbody id="inventory-table-body">
+                    <!-- 데이터는 JavaScript로 동적으로 추가됩니다 -->
                 </tbody>
             </table>
         </section>
     </div>
+        <!-- 수로 섹션 -->
+        <section id="waterway">
+            <h2>수로</h2>
+            <p>수로 관련 정보를 여기에 추가합니다.</p>
+        </section>
+
+        <!-- 요새전 섹션 -->
+        <section id="castle">
+            <h2>요새전</h2>
+            <p>요새전 관련 정보를 여기에 추가합니다.</p>
+        </section>
+
+        <!-- 도삭산 섹션 -->
+        <section id="dosak-mountain">
+            <h2>도삭산</h2>
+            <p>도삭산 관련 정보를 여기에 추가합니다.</p>
+        </section>
+
+        <!-- 도삭산 분배 섹션 -->
+        <section id="dosak-distribution">
+            <h2>도삭산 분배</h2>
+            <p>도삭산 분배 관련 정보를 여기에 추가합니다.</p>
+        </section>
+
+        <!-- 공성전 섹션 -->
+        <section id="siege">
+            <h2>공성전</h2>
+            <p>공성전 관련 정보를 여기에 추가합니다.</p>
+        </section>
+
+        <!-- 세금 및 성물 섹션 -->
+        <section id="tax-relic">
+            <h2>세금 및 성물</h2>
+            <p>세금 및 성물 관련 정보를 여기에 추가합니다.</p>
+        </section>
+    </div>
 
     <script>
-        const links = document.querySelectorAll('nav a');
-        const sections = document.querySelectorAll('.content > section');
-
-        links.forEach(link => {
-            link.addEventListener('click', e => {
-                e.preventDefault();
-                links.forEach(link => link.classList.remove('active'));
-                sections.forEach(section => section.style.display = 'none');
-
-                const sectionId = link.getAttribute('data-section');
+        // 사이드바 메뉴 클릭 이벤트 핸들러
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                // 모든 섹션 숨기기
+                document.querySelectorAll('.content section').forEach(section => {
+                    section.style.display = 'none';
+                });
+    
+                // 모든 메뉴 링크에서 active 클래스 제거
+                document.querySelectorAll('nav a').forEach(link => {
+                    link.classList.remove('active');
+                });
+    
+                // 클릭된 메뉴 링크에 active 클래스 추가
+                this.classList.add('active');
+    
+                // 해당 섹션 표시
+                const sectionId = this.getAttribute('data-section');
                 document.getElementById(sectionId).style.display = 'block';
-                link.classList.add('active');
             });
         });
-
-        // 기본적으로 스케줄 섹션을 표시
-        document.querySelector('nav a[data-section="schedule"]').click();
+    
+        // 기본적으로 공지사항 섹션 표시
+        document.getElementById('notice').style.display = 'block';
+    
+        // 입력 폼 데이터 추가 함수
+        function addInputData() {
+            // 입력값을 숫자로 변환
+            const nickname = document.getElementById('nickname').value;
+            const damageResistancePenetration = parseFloat(document.getElementById('damage-resistance-penetration').value);
+            const damageResistance = parseFloat(document.getElementById('damage-resistance').value);
+            const damageToPerson = parseFloat(document.getElementById('damage-to-person').value);
+            const defenseAgainstPerson = parseFloat(document.getElementById('defense-against-person').value);
+            const clanName = document.getElementById('clan-name').value;
+    
+            // 테이블의 본문 부분을 선택
+            const table = document.getElementById('personal-ranking-table').getElementsByTagName('tbody')[0];
+            
+            // 새로운 행을 테이블에 추가
+            const newRow = table.insertRow();
+    
+            // 순위
+            newRow.insertCell(0).textContent = table.rows.length + 0;
+    
+            // 닉네임
+            newRow.insertCell(1).textContent = nickname;
+    
+            // 피해 저항 관통
+            newRow.insertCell(2).textContent = damageResistancePenetration;
+    
+            // 피해 저항
+            newRow.insertCell(3).textContent = damageResistance;
+    
+            // 타채합산 계산
+            let damageResistanceSum = damageResistancePenetration + damageResistance;
+            newRow.insertCell(4).textContent = damageResistanceSum;
+    
+            // 대인 피해
+            newRow.insertCell(5).textContent = damageToPerson;
+    
+            // 대인 방어
+            newRow.insertCell(6).textContent = defenseAgainstPerson;
+    
+            // 환산합산 계산
+            let conversionSum = damageResistanceSum + (damageToPerson * 10 + defenseAgainstPerson * 10);
+            newRow.insertCell(7).textContent = conversionSum;
+    
+            // 문파명
+            newRow.insertCell(8).textContent = clanName;
+    
+            // 폼 필드 초기화
+            document.getElementById('input-form').reset();
+        }
     </script>
+
+<script>
+    let nextInventoryNo = 1; // 내판No 시작값
+
+    // 사이드바 메뉴 클릭 이벤트 핸들러
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', function() {
+            // 모든 섹션 숨기기
+            document.querySelectorAll('.content section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // 모든 메뉴 링크에서 active 클래스 제거
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // 클릭된 메뉴 링크에 active 클래스 추가
+            this.classList.add('active');
+
+            // 해당 섹션 표시
+            const sectionId = this.getAttribute('data-section');
+            document.getElementById(sectionId).style.display = 'block';
+        });
+    });
+
+    // 내판 항목 추가 함수
+    function addInventoryEntry() {
+        const date = document.getElementById('date').value;
+        const who = document.getElementById('who').value;
+        const toWhom = document.getElementById('to-whom').value;
+        const item = document.getElementById('item').value;
+        const quantity = parseInt(document.getElementById('quantity').value, 10);
+        const notes = document.getElementById('notes').value;
+
+        // 테이블에 데이터 추가
+        const tableBody = document.getElementById('inventory-table-body');
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td>${nextInventoryNo}</td>
+            <td>${date}</td>
+            <td>${who}</td>
+            <td>${toWhom}</td>
+            <td>${item}</td>
+            <td>${quantity}</td>
+            <td>${notes}</td>
+        `;
+        tableBody.appendChild(newRow);
+
+        // 내판No 증가
+        nextInventoryNo++;
+
+        // 아이템 요약 업데이트
+        updateInventorySummary();
+    }
+
+    // 아이템 요약 업데이트 함수
+    function updateInventorySummary() {
+        const items = ['황금잔', '별의흔적', '대피구슬', '대피%구슬', '대방구슬', '대방%구슬', '해모양장식', '나린의뼈'];
+
+        // 아이템별 카운트를 초기화
+        const itemCounts = {};
+        items.forEach(item => itemCounts[item] = 0);
+
+        // 모든 행을 확인하고 아이템 카운트 업데이트
+        document.querySelectorAll('#inventory-table-body tr').forEach(row => {
+            const cells = row.getElementsByTagName('td');
+            const item = cells[4].innerText;
+            const quantity = parseInt(cells[5].innerText, 10);
+            if (itemCounts[item] !== undefined) {
+                itemCounts[item] += quantity;
+            }
+        });
+
+        // 아이템 요약 테이블 업데이트
+        items.forEach(item => {
+            const countElement = document.getElementById(getItemCountId(item));
+            if (countElement) {
+                countElement.innerText = itemCounts[item];
+            }
+        });
+    }
+
+    // 아이템별 요약 ID 반환 함수
+    function getItemCountId(item) {
+        switch (item) {
+            case '황금잔': return 'golden-cup-count';
+            case '별의흔적': return 'star-spot-count';
+            case '대피구슬': return 'escape-bead-count';
+            case '대피%구슬': return 'escape-percent-bead-count';
+            case '대방구슬': return 'defense-bead-count';
+            case '대방%구슬': return 'defense-percent-bead-count';
+            case '해모양장식': return 'moon-pattern-accessory-count';
+            case '나린의뼈': return 'narins-bone-count';
+            default: return '';
+        }
+    }
+</script>
 </body>
+
 </html>
